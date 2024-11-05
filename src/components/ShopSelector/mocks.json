@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Youme",
+        "coords": {
+            "lat" :41.5620559,
+            "lng": 2.0854194
+        }
+    },
+    {
+        "name": "Youme-Badalona",
+        "coords": {
+            "lat" :42.5620559,
+            "lng": 2.0854194
+        }
+    },
+    {
+        "name": "Youme-Castelldefels",
+        "coords": {
+            "lat" :43.5620559,
+            "lng": 2.0854194
+        }
+    }
+]
