@@ -29,9 +29,16 @@ const useShopSelector = () => {
     setVisible(false);
   };
 
+  const handleRedirectionUser = (url: string) => {
+    if (window.location.href === url) {
+      return;
+    } else {
+      window.location.href = url;
+    }
+  };
+
   useEffect(() => {
     data?.stores && setStores(data.stores);
-    console.log(stores);
   }, [data]);
 
   useEffect(() => {
@@ -39,20 +46,23 @@ const useShopSelector = () => {
   }, [route]);
 
   useEffect(() => {
-    stores &&
-      selectedIndexStore &&
+    if (stores && selectedIndexStore) {
       setSelectedStore(stores[selectedIndexStore]);
+      handleRedirectionUser(stores[selectedIndexStore].url);
+    }
   }, [selectedIndexStore]);
 
   useEffect(() => {
     setError(originError);
   }, [originError]);
+
   return {
     visible,
     selectedIndexStore,
     selectedStore,
     handleOpenSelector,
     handleSelectedStore,
+    handleRedirectionUser,
     stores,
     data,
     error,
