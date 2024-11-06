@@ -36,12 +36,13 @@ const useShopSelector = () => {
     ) {
       return;
     } else {
-      window.location.href = url;
+      //  window.location.href = url;
     }
   };
 
   const handleSelectionUser = (url: string) => {
-    window.location.href = url + "?selected-shop";
+    const redirect = url + "?selected-shop";
+    window.location.href = redirect;
   };
 
   useEffect(() => {
