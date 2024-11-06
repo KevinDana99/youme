@@ -1,20 +1,19 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin-left: 20px;
   max-width: 350px;
   color: #69727d;
+  position: relative;
 `;
 export const Label = styled.div`
   margin-bottom: 3px;
   height: 40px;
-
   line-height: 2;
   font-weight: 600;
   font-size: 20px;
   font-style: normal;
   font-weight: 100;
-  font-family: "Bibroze";
+  font-family: inherit;
   clear: both;
   float: none;
   width: 100%;
@@ -29,7 +28,7 @@ export const Selector = styled.div`
   color: #69727d;
   background-color: #f9fafa;
   border-radius: var(--forms-fields-border-radius, 0);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   width: 100%;
   margin: 0;
@@ -52,8 +51,9 @@ export const Abbr = styled.abbr`
 export const Options = styled.div<{ visible: boolean }>`
   background-color: white;
   visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
-  width: calc(100% + 32px);
+  width: 100%;
   height: 300px;
+  position: absolute;
 `;
 
 export const Option = styled.div`
@@ -66,6 +66,9 @@ export const Option = styled.div`
   align-items: center;
   user-select: none;
   cursor: pointer;
+  font-family: "Lato", "Helvetica Neue", Arial, Verdana, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
 `;
 
 export const Icon = styled.div`

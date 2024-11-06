@@ -18,7 +18,17 @@ const ShopSelector = () => {
     selectedStore,
     visible,
     stores,
+    error,
+    loading,
   } = useShopSelector();
+  if (error) {
+    return <>{error}</>;
+  }
+
+  if (loading) {
+    return <></>;
+  }
+
   return (
     <Container>
       <Label>
@@ -28,7 +38,7 @@ const ShopSelector = () => {
         </Abbr>
       </Label>
       <Selector onClick={handleOpenSelector}>
-        <IoStorefrontSharp size={20} /> {selectedStore.name}
+        <IoStorefrontSharp size={20} /> {selectedStore?.name}
         <IoIosArrowDown size={20} color="red" onClick={handleOpenSelector} />
       </Selector>
       <Options visible={visible}>

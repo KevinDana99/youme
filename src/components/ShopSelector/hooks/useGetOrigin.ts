@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 const useGetOrigin = () => {
   const [origin, setOrigin] = useState<number[] | null>(null);
-
+  const [originError, setOriginError] =
+    useState<GeolocationPositionError["message"]>();
   const getCurrentLocation = () => {
     return new Promise<{ lat: number; lng: number }>((resolve, reject) => {
       if ("geolocation" in navigator) {
@@ -13,7 +14,7 @@ const useGetOrigin = () => {
             resolve({ lat, lng });
           },
           (error) => {
-            reject(error.message);
+            reject(error);
           },
           {
             enableHighAccuracy: true,
@@ -22,15 +23,26 @@ const useGetOrigin = () => {
           }
         );
       } else {
-        reject("Geolocation not supported");
+        setOriginError("Localizacion no soportada en tu dispositivo");
       }
     });
   };
 
   const originRequest = async () => {
-    const location = await getCurrentLocation();
-    const originLocation = [location.lat, location.lng];
-    setOrigin(originLocation);
+    try {
+      const location = await getCurrentLocation();
+      const originLocation = [location.lat, location.lng];
+      setOrigin(originLocation);
+    } catch (err) {
+      const error = err as GeolocationPositionError;
+      if (error.code === 1) {
+        setOriginError(
+          "El contenido que intentas cargar debe tener la localizacion activada para poder funcionar"
+        );
+      } else {
+        setOriginError(error.message);
+      }
+    }
   };
 
   useEffect(() => {
@@ -40,7 +52,7 @@ const useGetOrigin = () => {
     handleRequest();
   }, []);
 
-  return { origin };
+  return { origin, originError };
 };
 
 export default useGetOrigin;

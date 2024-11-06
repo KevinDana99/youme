@@ -8,7 +8,7 @@ import {
 
 const useCalculateRoute = ({ origin }: { origin: LocationType }) => {
   const [data, setData] = useState<ResponseGoogleApiType | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown>(null);
   const [route, setRoute] = useState<{
     store_index: number;
@@ -17,6 +17,7 @@ const useCalculateRoute = ({ origin }: { origin: LocationType }) => {
   } | null>(null);
   const handleRequest = async () => {
     setLoading(true);
+    // const routeMock = `41.451692, 2.244066`;
     try {
       if (origin) {
         const req = await fetch(
@@ -62,20 +63,26 @@ const useCalculateRoute = ({ origin }: { origin: LocationType }) => {
         };
         setRoute(minRoute);
       } else {
-        console.log("No se encontraron destinos válidos.");
+        setError(
+          "No se encontraron tiendas cercanas para su ubicacion actual."
+        );
       }
     }
   };
   useEffect(() => {
     handleRequest();
-    data && calculateRoute();
   }, [origin]);
+
+  useEffect(() => {
+    data && calculateRoute();
+  }, [data]);
   return {
     data,
     error,
     loading,
     route,
     refetch: handleRequest,
+    setError,
   };
 };
 

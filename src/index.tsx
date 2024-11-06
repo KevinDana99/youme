@@ -4,8 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+const element = document.createElement("p");
+const divElement = document.createElement("div");
+element.setAttribute("class", "form-row form-row-wide validate-required");
+divElement.setAttribute("id", "shop-selector");
+const formDestination = document.querySelector(
+  ".woocommerce-billing-fields__field-wrapper"
+);
+element.appendChild(divElement);
+formDestination?.appendChild(element);
+
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("shop-selector") as HTMLElement
 );
 root.render(<App />);
 
