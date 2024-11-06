@@ -52,7 +52,7 @@ export const Options = styled.div<{ visible: boolean }>`
   background-color: white;
   visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
   width: 100%;
-  height: 300px;
+  max-height: 300px;
   position: absolute;
 `;
 
