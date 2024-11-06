@@ -40,11 +40,6 @@ const useShopSelector = () => {
     }
   };
 
-  const handleSelectionUser = (url: string) => {
-    const redirect = url + "?selected-shop";
-    window.location.href = redirect;
-  };
-
   useEffect(() => {
     data?.stores && setStores(data.stores);
   }, [data]);
@@ -74,7 +69,6 @@ const useShopSelector = () => {
     selectedStore,
     handleOpenSelector,
     handleSelectedStore,
-    handleSelectionUser,
     stores,
     data,
     error,
