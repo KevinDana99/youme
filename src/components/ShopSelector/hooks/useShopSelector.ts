@@ -30,11 +30,18 @@ const useShopSelector = () => {
   };
 
   const handleRedirectionUser = (url: string) => {
-    if (window.location.href === url) {
+    if (
+      window.location.href === url ||
+      window.location.href.includes("?selected-shop")
+    ) {
       return;
     } else {
       window.location.href = url;
     }
+  };
+
+  const handleSelectionUser = (url: string) => {
+    window.location.href = url + "?selected-shop";
   };
 
   useEffect(() => {
@@ -62,7 +69,7 @@ const useShopSelector = () => {
     selectedStore,
     handleOpenSelector,
     handleSelectedStore,
-    handleRedirectionUser,
+    handleSelectionUser,
     stores,
     data,
     error,
