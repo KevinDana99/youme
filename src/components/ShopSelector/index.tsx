@@ -49,8 +49,7 @@ const ShopSelector = () => {
             <Option
               onClick={() => {
                 handleSelectedStore(index);
-                selectedIndexStore &&
-                  handleSelectionUser(stores?.[selectedIndexStore]?.url);
+                selectedIndexStore && handleSelectionUser(stores?.[index]?.url);
               }}
             >
               <Icon>
