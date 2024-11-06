@@ -1,39 +1,26 @@
 import { useEffect, useState } from "react";
-import storesMock from "../mocks.json";
 import useCalculateRoute from "./useCalculateRoute";
 import useGetOrigin from "./useGetOrigin";
+import { ResponseGoogleApiType } from "./types";
 
-const useShopSelector = ({
-  API_KEY_GOOGLE_MAPS,
-  stores,
-}: {
-  API_KEY_GOOGLE_MAPS: string;
-  stores: typeof storesMock;
-}) => {
+const useShopSelector = () => {
   const [visible, setVisible] = useState(false);
   const { origin } = useGetOrigin();
-
-  let destinationAllCoords = "";
-
-  stores.map((store, index) => {
-    if (index === 0) {
-      destinationAllCoords =
-        destinationAllCoords + `${store.coords.lat},${store.coords.lng}`;
-    } else {
-      destinationAllCoords =
-        destinationAllCoords + `|${store.coords.lat},${store.coords.lng}`;
-    }
-  });
+  const [stores, setStores] = useState<ResponseGoogleApiType["stores"] | null>(
+    null
+  );
   const { data, error, loading, route } = useCalculateRoute({
     origin: origin,
-    destination: destinationAllCoords,
-    apiKey: API_KEY_GOOGLE_MAPS,
   });
 
   const [selectedIndexStore, setSelectedIndexStore] = useState<number>(0);
-
   const [selectedStore, setSelectedStore] = useState(
-    stores[selectedIndexStore]
+    stores
+      ? stores[selectedIndexStore]
+      : {
+          coords: { lat: [0, 0], lng: [0, 0] },
+          name: "youme",
+        }
   );
 
   const handleOpenSelector = () => {
@@ -41,14 +28,19 @@ const useShopSelector = ({
   };
   const handleSelectedStore = (index: number) => {
     setSelectedIndexStore(index);
-    setSelectedStore(stores[index]);
+    stores && setSelectedStore(stores[index]);
     setVisible(false);
   };
 
   useEffect(() => {
+    data?.stores && setStores(data.stores);
+  }, [data]);
+
+  useEffect(() => {
     route?.store_index && setSelectedIndexStore(route?.store_index);
-    setSelectedStore(stores[selectedIndexStore]);
+    stores && setSelectedStore(stores[selectedIndexStore]);
   }, [route]);
+
   return {
     visible,
     selectedIndexStore,

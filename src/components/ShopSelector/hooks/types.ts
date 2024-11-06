@@ -1,25 +1,20 @@
+import stores from "./../mocks.json";
 export type LocationType = number[] | null;
 export type ResponseGoogleApiType = {
-  destination_addresses: string[];
-  origin_addresses: string[];
-  rows: [
+  elements: [
     {
-      elements: [
-        {
-          status: "ZERO_RESULTS" | "OK";
-          distance?: {
-            text: string;
-            value: number;
-          };
-          duration?: {
-            text: string;
-            value: number;
-          };
-        }
-      ];
+      status: "ZERO_RESULTS" | "OK";
+      distance?: {
+        text: string;
+        value: number;
+      };
+      duration?: {
+        text: string;
+        value: number;
+      };
     }
   ];
-  status: "OK";
+  stores: typeof stores;
 };
 
 export type DistanceElementType = {

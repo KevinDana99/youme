@@ -5,56 +5,8 @@ import {
   LocationType,
   ResponseGoogleApiType,
 } from "./types";
-/*
-const mock = {
-  destination_addresses: [
-    "Av. d'Estrasburg, 38, 08206 Sabadell, Barcelona, Spain",
-    "",
-  ],
-  origin_addresses: ["Av. d'Estrasburg, 42, 08206 Sabadell, Barcelona, Spain"],
-  rows: [
-    {
-      elements: [
-        {
-          distance: {
-            text: "18 m",
-            value: 18,
-          },
-          duration: {
-            text: "1 min",
-            value: 2,
-          },
-          status: "OK",
-        },
-        {
-          distance: {
-            text: "1 m",
-            value: 1,
-          },
-          duration: {
-            text: "1 min",
-            value: 1,
-          },
-          status: "OK",
-        },
-        {
-          status: "NOT_FOUND",
-        },
-      ],
-    },
-  ],
-  status: "OK",
-};
-*/
-const useCalculateRoute = ({
-  origin,
-  destination,
-  apiKey,
-}: {
-  origin: LocationType;
-  destination: string;
-  apiKey: string;
-}) => {
+
+const useCalculateRoute = ({ origin }: { origin: LocationType }) => {
   const [data, setData] = useState<ResponseGoogleApiType | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown>(null);
@@ -63,26 +15,15 @@ const useCalculateRoute = ({
     distance: string | undefined;
     duration: string | undefined;
   } | null>(null);
-  const handleRequest = async (destinationSelected?: string) => {
+  const handleRequest = async () => {
     setLoading(true);
-    const dest = destinationSelected ?? destination;
     try {
-      if (origin && dest) {
+      if (origin) {
         const req = await fetch(
-          `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin[0]},${origin[1]}&destinations=${dest}&mode=driving&key=${apiKey}`
+          `https://youme.es/wp-json/shop-selector/v1/distances?origins=${origin[0]},${origin[1]}`
         );
         const res: ResponseGoogleApiType = await req.json();
         setData(res);
-
-        if (res) {
-          res.rows[0].elements.find(
-            (el) =>
-              el.status === "ZERO_RESULTS" &&
-              setError(
-                "La ubicacion de destino o origen es invalida o se encuentran lejanas"
-              )
-          );
-        }
       }
     } catch (err) {
       setError(err);
@@ -91,9 +32,8 @@ const useCalculateRoute = ({
     }
   };
   const calculateRoute = () => {
-    if (data?.rows[0].elements) {
-      const distances: Array<DistanceElementType> = data.rows[0].elements;
-
+    if (data?.elements) {
+      const distances: Array<DistanceElementType> = data.elements;
       const initialMin: ClosestDestinationType = {
         distance: Infinity,
         index: -1,
@@ -129,7 +69,7 @@ const useCalculateRoute = ({
   useEffect(() => {
     handleRequest();
     data && calculateRoute();
-  }, [origin, data]);
+  }, [origin]);
   return {
     data,
     error,
