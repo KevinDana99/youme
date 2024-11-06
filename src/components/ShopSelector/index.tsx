@@ -45,7 +45,9 @@ const ShopSelector = () => {
       <Options visible={visible}>
         {stores?.map((option, index) => {
           return (
-            <a href={`${stores[index].url}?selected-shop`}>
+            <a
+              href={`${stores[index].url}?selected-shop=${stores[index].name}`}
+            >
               <Option
                 onClick={() => {
                   handleSelectedStore(index);
