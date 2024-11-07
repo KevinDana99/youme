@@ -51,8 +51,13 @@ const useShopSelector = () => {
   useEffect(() => {
     if (stores && selectedIndexStore) {
       setSelectedStore(stores[selectedIndexStore]);
-      !window.location.href.includes("?selected-shop") &&
+
+      if (!window.location.href.includes("?selected-shop")) {
         handleRedirectionUser(stores[selectedIndexStore].url);
+      } else {
+        const newIndex = window.location.href.split("selected-shop=")[1];
+        setSelectedIndexStore(parseInt(newIndex));
+      }
     }
   }, [selectedIndexStore]);
 
