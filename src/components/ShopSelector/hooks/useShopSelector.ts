@@ -40,7 +40,11 @@ const useShopSelector = () => {
     }
   };
   const handleSelectedUser = (url: string) => {
-    window.location.href = url;
+    if (window.location.href === url) {
+      return;
+    } else {
+      window.location.href = url;
+    }
   };
 
   useEffect(() => {
