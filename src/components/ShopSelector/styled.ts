@@ -62,7 +62,7 @@ export const Option = styled.div`
   width: 100%;
   box-sizing: border-box;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   user-select: none;
   cursor: pointer;

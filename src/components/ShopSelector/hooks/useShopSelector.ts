@@ -81,6 +81,7 @@ const useShopSelector = () => {
     stores,
     data,
     error,
+    route,
     loading,
   };
 };

@@ -20,6 +20,8 @@ const ShopSelector = () => {
     stores,
     error,
     loading,
+    route,
+    data,
     handleSelectedUser,
   } = useShopSelector();
   if (error) {
@@ -53,10 +55,13 @@ const ShopSelector = () => {
                 );
               }}
             >
-              <Icon>
-                <IoStorefrontSharp size={20} color="red" />
-              </Icon>
-              {option.name}
+              <div>
+                <Icon>
+                  <IoStorefrontSharp size={20} color="red" />
+                </Icon>
+                {option.name}
+              </div>
+              {data?.elements[index].distance?.text}
             </Option>
           );
         })}
