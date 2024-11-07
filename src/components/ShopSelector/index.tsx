@@ -6,6 +6,7 @@ import {
   Option,
   Options,
   Selector,
+  ShopOption,
 } from "./styled";
 import { IoStorefrontSharp } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
@@ -55,12 +56,12 @@ const ShopSelector = () => {
                 );
               }}
             >
-              <div>
+              <ShopOption>
                 <Icon>
                   <IoStorefrontSharp size={20} color="red" />
                 </Icon>
                 {option.name}
-              </div>
+              </ShopOption>
               {data?.elements[index].distance?.text}
             </Option>
           );

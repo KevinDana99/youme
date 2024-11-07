@@ -55,6 +55,9 @@ export const Options = styled.div<{ visible: boolean }>`
   max-height: 300px;
   position: absolute;
 `;
+export const ShopOption = styled.div`
+  display: flex;
+`;
 
 export const Option = styled.div`
   border-bottom: solid 0.1px #adacac7a;
