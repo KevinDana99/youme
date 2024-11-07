@@ -23,7 +23,7 @@ export const Selector = styled.div`
   cursor: pointer;
   border: solid 1px #69727d;
   height: 16px;
-  padding: 16px;
+  padding: 20px;
   font-family: "Lato", "Helvetica Neue", Arial, Verdana, sans-serif;
   color: #69727d;
   background-color: #f9fafa;
