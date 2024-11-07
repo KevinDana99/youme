@@ -20,7 +20,7 @@ const ShopSelector = () => {
     stores,
     error,
     loading,
-    selectedIndexStore,
+    handleSelectedUser,
   } = useShopSelector();
   if (error) {
     return <>{error}</>;
@@ -45,18 +45,19 @@ const ShopSelector = () => {
       <Options visible={visible}>
         {stores?.map((option, index) => {
           return (
-            <a href={`${stores[index].url}?selected-shop=${index}`}>
-              <Option
-                onClick={() => {
-                  handleSelectedStore(index);
-                }}
-              >
-                <Icon>
-                  <IoStorefrontSharp size={20} color="red" />
-                </Icon>
-                {option.name}
-              </Option>
-            </a>
+            <Option
+              onClick={() => {
+                handleSelectedStore(index);
+                handleSelectedUser(
+                  `${stores[index].url}?selected-shop=${index}`
+                );
+              }}
+            >
+              <Icon>
+                <IoStorefrontSharp size={20} color="red" />
+              </Icon>
+              {option.name}
+            </Option>
           );
         })}
       </Options>

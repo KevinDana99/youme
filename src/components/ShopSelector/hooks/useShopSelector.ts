@@ -39,6 +39,9 @@ const useShopSelector = () => {
       window.location.href = url;
     }
   };
+  const handleSelectedUser = (url: string) => {
+    window.location.href = url;
+  };
 
   useEffect(() => {
     data?.stores && setStores(data.stores);
@@ -70,6 +73,7 @@ const useShopSelector = () => {
     selectedStore,
     handleOpenSelector,
     handleSelectedStore,
+    handleSelectedUser,
     stores,
     data,
     error,
