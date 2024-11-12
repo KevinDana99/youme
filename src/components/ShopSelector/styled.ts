@@ -55,7 +55,7 @@ export const Options = styled.div<{ visible: boolean }>`
   max-height: 300px;
   position: absolute;
   overflow: scroll;
-  z-index: 10000;
+  z-index: 2;
 `;
 export const ShopOption = styled.div`
   display: flex;
